@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class cupos extends Model
 {
-    use HasFactory;
+    protected $fillable = ['carrera_id', 'cupos', 'reservados', 'inscriptos'];
+
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class);
+    }
+      
 }
