@@ -6,9 +6,18 @@ use App\Models\ListaEspera;
 use App\Models\Carrera;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\cupos;
+use Illuminate\Support\Facades\Validator;
 
 class ListaEsperaController extends Controller
 {
+
+    private function carrerasParaListaEspera(){
+        $carreras = Carrera::pluck('descripcion', 'id');
+        $cupos = Cupo::with('carrera')->whereColumn('reservados', '>', 'cupos')->get();
+    }
+
+
     public function index()
     {
         $listaEspera = ListaEspera::with('carrera')->get();
@@ -20,24 +29,40 @@ class ListaEsperaController extends Controller
             ->get();
         return view('backend.lista_espera.index', compact('listaEspera', 'carreras', 'carrerasEspera'));
     }
+
     
 
     public function create()
-    {
-        $carreras = Carrera::all();
-        return view('backend.lista_espera.create', compact('carreras'));
+    {   
+        $reservados = DB::table('cupos')
+            ->whereColumn('reservados', '>=', 'cupos')
+            ->pluck('carrera_id')
+            ->toArray();
+
+        $cupos = DB::table('carreras')
+            ->select('id', 'descripcion')
+            ->whereIn('id', $reservados)
+            ->get();
+
+        return view('backend.lista_espera.create', compact('cupos'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'carrera_id' => 'required',
             'nombre' => 'required',
             'apellido' => 'required',
             'dni' => 'required',
             'telefono' => 'required',
             'email' => 'required|email',
+            'email_confirm' => 'required|email|same:email'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         ListaEspera::create($request->all());
 

@@ -1,3 +1,7 @@
+@extends('backend.layouts.listaEspera')
+@section('title', 'editar inscripto')
+@section('content')
+
 <h1>Editar Registro</h1>
 
 @if ($errors->any())

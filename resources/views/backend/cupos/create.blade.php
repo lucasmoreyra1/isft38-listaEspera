@@ -1,23 +1,38 @@
 <!-- resources/views/cupos/create.blade.php -->
-<h1>Crear Cupo</h1>
 
-<form action="{{ route('cupos.store') }}" method="POST">
-    @csrf
-    <label for="carrera_id">Carrera:</label>
-    <select name="carrera_id" id="carrera_id">
-        @foreach ($carreras as $carrera)
-        <option value="{{ $carrera->id }}">{{ $carrera->descripcion }}</option>
-        @endforeach
-    </select>
+@extends('backend.layouts.listaEspera')
+@section('title', 'crear cupo')
+@section('content')
 
-    <label for="cupos">Cupos:</label>
-    <input type="number" name="cupos" id="cupos">
+<div class="container">
+    <h1>Crear Cupo</h1>
 
-    <label for="reservados">Reservados:</label>
-    <input type="number" name="reservados" id="reservados">
+    <form action="{{ route('cupos.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="carrera_id">Carrera:</label>
+            <select class="form-control" name="carrera_id" id="carrera_id">
+                @foreach ($carreras as $carrera)
+                <option value="{{ $carrera->id }}">{{ $carrera->descripcion }}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <label for="inscriptos">Inscriptos:</label>
-    <input type="number" name="inscriptos" id="inscriptos">
+        <div class="form-group">
+            <label for="cupos">Cupos:</label>
+            <input type="number" class="form-control" name="cupos" id="cupos">
+        </div>
 
-    <button type="submit">Guardar</button>
-</form>
+        <div class="form-group">
+            <label for="reservados">Reservados:</label>
+            <input type="number" class="form-control" name="reservados" id="reservados">
+        </div>
+
+        <div class="form-group">
+            <label for="inscriptos">Inscriptos:</label>
+            <input type="number" class="form-control" name="inscriptos" id="inscriptos">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

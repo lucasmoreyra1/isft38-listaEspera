@@ -1,3 +1,8 @@
+
+@extends('backend.layouts.listaEspera')
+@section('title', 'lista espera vista')
+@section('content')  
+
 <h1>Lista de Espera</h1>
 
 <div class="form-group">

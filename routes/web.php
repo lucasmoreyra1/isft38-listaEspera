@@ -59,6 +59,7 @@ Route::resource('lista_espera', ListaEsperaController::class);
 
 Route::resource('cupos', CupoController::class);
 
+
 /* Route::get('cupos/{cupo}/edit', [CupoController::class, 'edit'])->name('cupos.edit');
 Route::put('cupos/{cupo}', [CupoController::class, 'update'])->name('cupos.update'); */
 

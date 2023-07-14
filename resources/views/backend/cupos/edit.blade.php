@@ -1,21 +1,33 @@
 <!-- resources/views/cupos/edit.blade.php -->
-<h1>Editar Cupo</h1>
 
-<form action="{{ route('cupos.update', $cupo->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+@extends('backend.layouts.listaEspera')
+@section('title', 'editar cupo')
+@section('content')
 
+<div class="container">
+    <h1>Editar Cupo</h1>
 
-    <input type="hidden" name="carrera_id" value="{{ $cupo->carrera_id }}">
+    <form action="{{ route('cupos.update', $cupo->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-    <label for="cupos">Cupos:</label>
-    <input type="number" name="cupos" id="cupos" value="{{ $cupo->cupos }}">
+        <input type="hidden" name="carrera_id" value="{{ $cupo->carrera_id }}">
 
-    <label for="reservados">Reservados:</label>
-    <input type="number" name="reservados" id="reservados" value="{{ $cupo->reservados }}">
+        <div class="form-group">
+            <label for="cupos">Cupos:</label>
+            <input type="number" class="form-control" name="cupos" id="cupos" value="{{ $cupo->cupos }}">
+        </div>
 
-    <label for="inscriptos">Inscriptos:</label>
-    <input type="number" name="inscriptos" id="inscriptos" value="{{ $cupo->inscriptos }}">
+        <div class="form-group">
+            <label for="reservados">Reservados:</label>
+            <input type="number" class="form-control" name="reservados" id="reservados" value="{{ $cupo->reservados }}">
+        </div>
 
-    <button type="submit">Guardar</button>
-</form>
+        <div class="form-group">
+            <label for="inscriptos">Inscriptos:</label>
+            <input type="number" class="form-control" name="inscriptos" id="inscriptos" value="{{ $cupo->inscriptos }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
