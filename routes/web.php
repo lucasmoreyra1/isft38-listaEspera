@@ -54,10 +54,23 @@ Route::group([], __DIR__ . '/historia.php');
 
 
 
-Route::resource('lista_espera', ListaEsperaController::class);
 
 
-Route::resource('cupos', CupoController::class);
+
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::resource('lista_espera', ListaEsperaController::class);
+    Route::resource('cupos', CupoController::class);
+});
+
+Route::get('inscripcion/listaEspera', [ListaEsperaController::class, 'create'])->name('lista_espera.create');
+Route::post('inscripcion/store', [ListaEsperaController::class, 'store'])->name('lista_espera.store');
+/* 
+Route::get('inscribirse',  function () {
+    return view('backend.lista_espera.create');
+}); */
+
+
 
 
 /* Route::get('cupos/{cupo}/edit', [CupoController::class, 'edit'])->name('cupos.edit');
