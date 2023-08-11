@@ -14,7 +14,7 @@ class ListaEsperaController extends Controller
 
     private function carrerasParaListaEspera(){
         $carreras = Carrera::pluck('descripcion', 'id');
-        $cupos = Cupo::with('carrera')->whereColumn('reservados', '>', 'cupos')->get();
+        $cupos = Cupos::with('carrera')->whereColumn('reservados', '>', 'cupos')->get();
     }
 
 
@@ -52,21 +52,25 @@ class ListaEsperaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'carrera_id' => 'required',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'dni' => 'required',
-            'telefono' => 'required',
-            'email' => 'required|email',
-            'email_confirm' => 'required|email|same:email'
+            'nombre' => 'required|string|between:3,99',
+            'apellido' => 'required|string|between:3,99',
+            'dni' => 'required|digits:8|unique:lista_espera,dni' ,
+            'telefono' => 'required|digits_between:6,15',
+            'tel_alternativo' => 'digits_between:6,15',
+            'email' => 'required|email|between:2,255',
+            'email_confirm' => 'required|email|same:email|between:2,255'
         ]);
+
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $dni = ListaEspera::with('carrera')->get();
+
         ListaEspera::create($request->all());
 
-        return redirect()->route('lista_espera.index')->with('success', 'Registro creado exitosamente.');
+        return redirect()->route('lista_espera.create')->with('success', 'Datos enviados exitosamente, nos comunicaremos cuando haya cupos disponibles');
     }
 
     public function edit(ListaEspera $listaEspera)

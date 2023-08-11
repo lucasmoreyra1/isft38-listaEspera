@@ -43,7 +43,7 @@
                     <form action="{{ route('lista_espera.destroy', $registro->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar?')">Eliminar</button>
                     </form>
                 </td>
             </tr>
