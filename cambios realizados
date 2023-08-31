@@ -1,0 +1,4 @@
+se agregaron las vistas backend/lista_espera y backend/cupos (hay que hacer referencia a los layouts correctos)
+se agregaron los controladores CupoController y ListaEsperaController
+se agregaron los modelos cupos y ListaEspera
+se agregaron las rutas necesarias al final de web.php ademas de los namespaces requeridos 
