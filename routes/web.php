@@ -58,10 +58,10 @@ Route::group([], __DIR__ . '/historia.php');
 
 
 
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['admin']], function () {
     Route::resource('lista_espera', ListaEsperaController::class);
     Route::resource('cupos', CupoController::class);
-});
+// });
 
 Route::get('inscripcion/listaEspera', [ListaEsperaController::class, 'create'])->name('lista_espera.create');
 Route::post('inscripcion/store', [ListaEsperaController::class, 'store'])->name('lista_espera.store');

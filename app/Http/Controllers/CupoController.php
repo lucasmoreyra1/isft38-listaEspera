@@ -23,7 +23,7 @@ class CupoController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'carrera_id' => 'required|exists:carreras,id',
+            'carrera_id' => 'required|exists:carreras,id|unique:cupos,carrera_id',
             'cupos' => 'required|integer',
             'reservados' => 'required|integer',
             'inscriptos' => 'required|integer',

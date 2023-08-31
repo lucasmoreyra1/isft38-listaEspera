@@ -19,6 +19,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>carrera</th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>DNI</th>
@@ -32,6 +33,7 @@
         @foreach($listaEspera as $registro)
             <tr data-carrera="{{ $registro->carrera_id }}">
                 <td>{{ $registro->id }}</td>
+                <td>{{ $registro->carrera->descripcion }}</td>
                 <td>{{ $registro->nombre }}</td>
                 <td>{{ $registro->apellido }}</td>
                 <td>{{ $registro->dni }}</td>
